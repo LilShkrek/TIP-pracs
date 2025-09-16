@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/google/uuid"
 	"log"
 	"net/http"
 	"os"
-	"github.com/google/uuid"
 )
 
 type user struct {
@@ -14,8 +14,8 @@ type user struct {
 }
 
 type health struct {
-	Status	string `json:"status"`
-	Time	string `json:"time"`
+	Status string `json:"status"`
+	Time   string `json:"time"`
 }
 
 func main() {
@@ -41,8 +41,8 @@ func main() {
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(health{
-			Status:	"ok",
-			Time:	"<RFC3339>",
+			Status: "ok",
+			Time:   "RFC3339",
 		})
 	})
 
