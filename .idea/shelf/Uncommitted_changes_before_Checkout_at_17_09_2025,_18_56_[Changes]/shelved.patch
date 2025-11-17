@@ -1,0 +1,15 @@
+Index: helloapi/cmd/server/main.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\nimport (\n\t\"encoding/json\"\n\t\"github.com/google/uuid\"\n\t\"log\"\n\t\"net/http\"\n\t\"os\"\n)\n\ntype user struct {\n\tID   string `json:\"id\"`\n\tName string `json:\"name\"`\n}\n\ntype health struct {\n\tStatus string `json:\"status\"`\n\tTime   string `json:\"time\"`\n}\n\nfunc main() {\n\tport := os.Getenv(\"APP_PORT\")\n\tif port == \"\" {\n\t\tport = \"8080\"\n\t}\n\n\tmux := http.NewServeMux()\n\n\tmux.HandleFunc(\"/hello\", func(w http.ResponseWriter, r *http.Request) {\n\t\tw.Write([]byte(\"Hello, world!\"))\n\t})\n\n\tmux.HandleFunc(\"/user\", func(w http.ResponseWriter, r *http.Request) {\n\t\tw.Header().Set(\"Content-Type\", \"application/json\")\n\t\t_ = json.NewEncoder(w).Encode(user{\n\t\t\tID:   uuid.NewString(),\n\t\t\tName: \"Gopher\",\n\t\t})\n\t})\n\n\tmux.HandleFunc(\"/health\", func(w http.ResponseWriter, r *http.Request) {\n\t\tw.Header().Set(\"Content-Type\", \"application/json\")\n\t\t_ = json.NewEncoder(w).Encode(health{\n\t\t\tStatus: \"ok\",\n\t\t\tTime:   \"RFC3339\",\n\t\t})\n\t})\n\n\taddr := \":\" + port\n\tlog.Printf(\"Starting on %s ...\", addr)\n\tlog.Fatal(http.ListenAndServe(addr, mux))\n}
+===================================================================
+diff --git a/helloapi/cmd/server/main.go b/helloapi/cmd/server/main.go
+--- a/helloapi/cmd/server/main.go	(revision 06cb55b3f1ed5cf24f68c22fe83ec968eb019b35)
++++ b/helloapi/cmd/server/main.go	(date 1758043976714)
+@@ -49,4 +49,4 @@
+ 	addr := ":" + port
+ 	log.Printf("Starting on %s ...", addr)
+ 	log.Fatal(http.ListenAndServe(addr, mux))
+-}
+\ No newline at end of file
++}
