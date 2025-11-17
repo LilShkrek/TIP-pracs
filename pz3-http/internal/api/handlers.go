@@ -59,6 +59,10 @@ func (h *Handlers) CreateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	} else if len(req.Title) > 140 { // Проверка длины заголовка
 		BadRequest(w, "title is too long")
+		return
+	} else if len(req.Title) < 3 {
+		BadRequest(w, "title is too short")
+		return
 	}
 
 	t := h.Store.Create(req.Title)

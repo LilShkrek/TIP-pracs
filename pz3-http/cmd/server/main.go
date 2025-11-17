@@ -13,6 +13,14 @@ import (
 	"example.com/pz3-http/internal/storage"
 )
 
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // порт по умолчанию
+	}
+	return ":" + port
+}
+
 func main() {
 	store := storage.NewMemoryStore()
 	h := api.NewHandlers(store)
@@ -34,9 +42,11 @@ func main() {
 	loggedHandler := api.Logging(mux)
 	CorsHandler := api.EnableCORS(loggedHandler)
 
+	addr := getPort()
+
 	// Создаем HTTP-сервер с настройками
 	server := &http.Server{
-		Addr:         ":8080",
+		Addr:         addr,
 		Handler:      CorsHandler,
 		ReadTimeout:  15 * time.Second, // Максимальное время чтения запроса
 		WriteTimeout: 15 * time.Second, // Максимальное время записи ответа
@@ -53,6 +63,13 @@ func main() {
 		log.Printf("  GET    http://localhost%s/tasks/{id}", server.Addr)
 		log.Printf("  PATCH  http://localhost%s/tasks/{id}", server.Addr)
 		log.Printf("  DELETE http://localhost%s/tasks/{id}", server.Addr)
+
+		envPort := os.Getenv("PORT")
+		if envPort == "" {
+			log.Printf("Using default port 8080 (set PORT environment variable to change)")
+		} else {
+			log.Printf("Using PORT from environment: %s", envPort)
+		}
 
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Server failed to start: %v", err)
