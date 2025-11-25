@@ -34,7 +34,6 @@ func (h *Handler) list(w http.ResponseWriter, r *http.Request) {
 	// Получаем все задачи
 	allTasks := h.repo.List()
 
-	// ← ИСПРАВЛЕНО: сначала фильтруем, потом пагинируем
 	filteredTasks := filterTasksByDone(allTasks, doneFilter)
 
 	// Вычисляем offset и limit для пагинации (уже для отфильтрованных задач)
