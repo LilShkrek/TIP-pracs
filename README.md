@@ -37,7 +37,7 @@ Redis (Remote Dictionary Server) — это высокопроизводител
 
 ### Ссылка на репозиторий
 Ссылка на репозиторий с исходным кодом проекта:
-```https://github.com/LilShkrek/TIP-pracs/tree/prac7```
+<a href="https://github.com/LilShkrek/TIP-pracs/tree/prac7">Ссылка на репозиторий с исходным кодом проекта</a>
 
 # Ответы на контрольные вопросы:
 
