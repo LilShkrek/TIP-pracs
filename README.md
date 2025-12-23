@@ -38,6 +38,9 @@ ORM (Object-Relational Mapping) позволяет работать с базо�
 Получение заметки с автором и тегами<br>
 <img width="793" height="740" alt="image" src="https://github.com/user-attachments/assets/8edfcd45-22ff-4921-8165-bc9804ea2526" />
 
+### Ссылка на репозиторий
+<a href="https://github.com/LilShkrek/TIP-pracs/tree/prac6">Ссылка на репозиторий с исходным кодом проекта</a>
+
 # Ответы на контрольные вопросы:
 
 - Что такое ORM и зачем она нужна, если есть database/sql? Приведите 2-3 плюса и 1-2 минуса.
